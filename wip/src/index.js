@@ -10,6 +10,8 @@ function signalAppStart () {
     console.table([['Port', env.port], ['Environment', env.env]])
 }
 function start () {
+    config.aggregators.forEach(a => a.start())
+    config.components.forEach(a => a.start())
     app.listen(env.port, signalAppStart)
 }
 

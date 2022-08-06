@@ -18,13 +18,12 @@ function createHandlers ({ queries }) {
 function createQueries ( {db} ) {
     return {
         loadHomePage() {
-            console.log('Loading home...')
-            return db.then(client => client('videos')
-                .sum('view_count as videosWatched')
-                .then(rows => {
-                    console.log('Sum done')
-                    return rows[0]})
-                )
+            return db.then(client => client('pages')
+                .where({ page_name: 'home' })
+                .limit(1)
+                .then(camelCaseKeys)
+                .then(rows => rows[0])
+            )
         }
     }
 }
